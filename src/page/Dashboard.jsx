@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Squares from "../component/dashboard/Squares";
 import AppBar from "../component/menu/AppBar";
 import Clip from "../data/Vector.svg";
@@ -8,8 +8,30 @@ import Users from "../data/user.svg";
 import Schedule from "../component/dashboard/Schedule";
 import PieChart from "../component/dashboard/chart/PieChart";
 import LineChart from "../component/dashboard/chart/LineChart";
+import axios from "axios";
 
 function Dashboard({ handleToggle }) {
+const initialdata={
+  lineData:{
+    user:[],
+    guest:[]
+  },
+  pieData:[]
+}
+  const [data,setData]=useState(initialdata)
+
+  useEffect(()=>{
+    axios
+    .get("https://dummy-server-py62.onrender.com")
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+  },[])
+
   const square = [
     {
       name: "Total Revenues",
@@ -48,7 +70,7 @@ function Dashboard({ handleToggle }) {
           ))}
         </div>
         <div className="line_chart mb-[40px] ">
-          <LineChart />
+          <LineChart data={data} />
         </div>
         <div className="pie_shedule flex flex-col md:flex-row justify-between gap-4  xl:gap-[40px]">
           <div className="pie_chart w-full xl:w-[480px] xl:h-[256px] rounded-2xl flex flex-col items-start ps-[50px] pe-[40px] py-[30px] gap-[25px] bg-[white] ">
@@ -57,7 +79,7 @@ function Dashboard({ handleToggle }) {
               <span className="text-[12px] text-gray-500">See All {`>`}</span>
             </div>
             <div className="w-full">
-              <PieChart />
+              <PieChart data={data}/>
             </div>
           </div>
           <div className="schedule w-full">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 
-const SplineChart = () => {
+const SplineChart = ({data}) => {
   const options = {
     chart: {
       id: "spline-chart",
@@ -32,11 +32,11 @@ const SplineChart = () => {
   const series = [
     {
       name: "Guest",
-      data: [30, 40, 25, 50, 49, 21, 70],
+      data: data.lineData['guest'],
     },
     {
       name: "User",
-      data: [15, 20, 35, 40, 39, 31, 60],
+      data: data.lineData['user'],
     },
   ];
 
@@ -44,7 +44,7 @@ const SplineChart = () => {
 
   useEffect(() => {
     setsetting({ options, series });
-  });
+  },[data]);
 
   return (
     <div className="spline-chart md:px-[40px] bg-[white] min-w-[200px] max-w-[1000px] md:rounded-2xl">

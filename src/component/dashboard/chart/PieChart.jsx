@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 
-const ResponsivePieChart = () => {
+const ResponsivePieChart = ({data}) => {
   const chartOptions = {
-    series: [44, 55, 13],
+    series:data.pieData,
     options: {
       chart: {
         type: "pie",
@@ -101,7 +101,7 @@ const ResponsivePieChart = () => {
 
   const [setting, setSetting] = useState(chartOptions);
 
-  useEffect(() => setSetting(chartOptions));
+  useEffect(() => setSetting(chartOptions),[data]);
 
   return (
     <Chart
