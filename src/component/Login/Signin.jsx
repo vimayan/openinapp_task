@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 function Signin() {
   const navigate = useNavigate();
+  const clientId = process.env.REACT_APP_CLIENT;
 
   const handleCallback = (response) => {
     const user = jwtDecode(response.credential);
@@ -17,8 +18,7 @@ function Signin() {
   useEffect(() => {
     /*global google */
     window.google.accounts.id.initialize({
-      client_id:
-        "666341212747-6uj58jpfvf5ldm1og8gpj5csa21jtrl3.apps.googleusercontent.com",
+      client_id: clientId,
       callback: handleCallback,
     });
     window.google.accounts.id.renderButton(document.getElementById("gsignin"), {

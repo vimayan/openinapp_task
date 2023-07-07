@@ -7,6 +7,7 @@ import Login from "./page/Login";
 import SideMenu from "./component/menu/SideMenu";
 
 function App() {
+
   const [toggle, setToggle] = useState(false);
 
   const handleToggle = () => setToggle(!toggle);
